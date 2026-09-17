@@ -117,7 +117,8 @@ footer{border-top:1px solid var(--border);padding:32px 24px;text-align:center;co
   .chapter{break-inside:auto}
   body{font-size:11pt}
 }
-.edition{display:inline-flex;gap:4px;align-items:center;font-family:var(--mono);font-size:12px;margin-bottom:22px;background:rgba(255,255,255,.08);padding:4px 5px;border-radius:20px}
+.edition-row{text-align:right;margin-bottom:20px}
+.edition{display:inline-flex;gap:4px;align-items:center;font-family:var(--mono);font-size:12px;background:rgba(255,255,255,.08);padding:4px 5px;border-radius:20px}
 .edition .lbl{color:var(--hero-muted);padding:0 8px 0 6px;letter-spacing:1px;text-transform:uppercase;font-size:10px}
 .edition a{color:var(--hero-muted);text-decoration:none;padding:5px 14px;border-radius:16px}
 .edition a.ed-active{background:var(--accent);color:#fff;font-weight:600}
@@ -128,7 +129,7 @@ footer{border-top:1px solid var(--border);padding:32px 24px;text-align:center;co
 
 <header class="hero">
   <div class="hero-inner">
-    <div class="edition"><span class="lbl">Edición</span><a href="index.html" class="ed-active">A tu manera</a><a href="goproject.html" >GoProject</a></div>
+    <div class="edition-row"><div class="edition"><span class="lbl">Edición</span><a href="index.html" class="ed-active">A tu manera</a><a href="goproject.html" >GoProject</a></div></div>
     <div class="wordmark"><b>go</b><i>PROJECT</i> <span>EDELVIVES</span></div>
     <h1>Manual de GoProject a tu manera</h1>
     <p>La guía completa de la licencia «a tu manera»: crear proyectos con IA, editarlos, evaluar a tu alumnado con criterios LOMLOE y llevarlos al aula, en papel y en digital.</p>
