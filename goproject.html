@@ -123,6 +123,11 @@ footer{border-top:1px solid var(--border);padding:32px 24px;text-align:center;co
 .edition a{color:var(--hero-muted);text-decoration:none;padding:5px 14px;border-radius:16px}
 .edition a.ed-active{background:var(--accent);color:#fff;font-weight:600}
 .edition a:not(.ed-active):hover{color:var(--hero-ink)}
+figure img{cursor:zoom-in}
+.lightbox{position:fixed;inset:0;z-index:100;display:none;align-items:center;justify-content:center;background:rgba(12,9,7,.92);padding:24px;cursor:zoom-out}
+.lightbox.open{display:flex}
+.lightbox img{max-width:96vw;max-height:92vh;border-radius:10px;box-shadow:0 20px 60px rgba(0,0,0,.55)}
+@media print{.lightbox{display:none!important}}
 </style>
 
 <button class="toggle" id="themeBtn" aria-label="Cambiar tema">◐ Tema</button>
@@ -404,5 +409,19 @@ footer{border-top:1px solid var(--border);padding:32px 24px;text-align:center;co
     es.forEach(function(e){ if(e.isIntersecting){ links.forEach(function(l){l.classList.remove('active');}); if(map[e.target.id])map[e.target.id].classList.add('active'); }});
   },{rootMargin:'-20% 0px -70% 0px'});
   document.querySelectorAll('.chapter').forEach(function(s){obs.observe(s);});
+})();
+</script>
+
+<script>
+(function(){
+  var lb=document.createElement('div');lb.className='lightbox';lb.setAttribute('aria-hidden','true');
+  var im=document.createElement('img');im.alt='';lb.appendChild(im);document.body.appendChild(lb);
+  function close(){lb.classList.remove('open');lb.setAttribute('aria-hidden','true');im.removeAttribute('src');}
+  document.addEventListener('click',function(e){
+    var t=e.target;
+    if(t.tagName==='IMG'&&t.closest('figure')){im.src=t.currentSrc||t.src;im.alt=t.alt||'';lb.classList.add('open');lb.setAttribute('aria-hidden','false');}
+    else if(t===lb||t===im){close();}
+  });
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&lb.classList.contains('open'))close();});
 })();
 </script>
