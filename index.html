@@ -1,0 +1,504 @@
+<title>Manual de GoProject</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;600;700;900&display=swap">
+
+<style>
+:root{
+  --bg:#faf7f3; --surface:#ffffff; --surface-2:#f3ede5; --ink:#201a16; --muted:#6b615a;
+  --border:#e8dfd4; --accent:#d1481e; --accent-ink:#b23a15; --accent-2:#5f9128; --accent-soft:#fbe9e1;
+  --hero-bg:#17120f; --hero-ink:#f5efe8; --hero-muted:#b8ab9e;
+  --shadow:0 1px 2px rgba(40,26,16,.05),0 8px 24px rgba(40,26,16,.06);
+  --serif:"Titillium Web",system-ui,sans-serif; --sans:"Titillium Web",system-ui,sans-serif; --mono:"Titillium Web",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15110e; --surface:#1e1813; --surface-2:#251e18; --ink:#f1eae2; --muted:#a89b8f;
+    --border:#332a22; --accent:#f26a3d; --accent-ink:#f9855c; --accent-2:#93c24f; --accent-soft:#2a1c14;
+    --hero-bg:#0f0c0a; --hero-ink:#f5efe8; --hero-muted:#b8ab9e;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.35);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#15110e; --surface:#1e1813; --surface-2:#251e18; --ink:#f1eae2; --muted:#a89b8f;
+  --border:#332a22; --accent:#f26a3d; --accent-2:#93c24f; --accent-soft:#2a1c14;
+  --hero-bg:#0f0c0a; --hero-ink:#f5efe8; --hero-muted:#b8ab9e;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased}
+
+/* HERO */
+.hero{background:var(--hero-bg);color:var(--hero-ink);padding:64px 24px 72px;position:relative;overflow:hidden}
+.hero-inner{max-width:1060px;margin:0 auto}
+.wordmark{font-family:var(--mono);font-weight:600;letter-spacing:.5px;font-size:15px;display:inline-flex;gap:.15em;align-items:baseline}
+.wordmark b{color:var(--accent)} .wordmark i{color:var(--accent-2);font-style:normal;font-weight:600}
+.wordmark span{color:var(--accent);font-weight:600;font-size:11px;letter-spacing:2px}
+.hero h1{font-family:var(--serif);font-weight:700;font-size:clamp(2.6rem,6vw,4.4rem);line-height:1.02;letter-spacing:-.02em;margin:28px 0 18px;text-wrap:balance;max-width:16ch}
+.hero p{color:var(--hero-muted);font-size:clamp(1.05rem,2vw,1.3rem);max-width:56ch;margin:0}
+.hero .kicker{font-family:var(--mono);font-size:13px;color:var(--accent-2);margin-top:32px}
+.hero-rule{height:4px;width:120px;margin-top:28px;background:linear-gradient(90deg,var(--accent),var(--accent-2))}
+
+/* LAYOUT */
+.layout{max-width:1160px;margin:0 auto;display:grid;grid-template-columns:262px 1fr;gap:48px;padding:0 24px}
+.toc{position:sticky;top:0;align-self:start;height:100vh;overflow-y:auto;padding:36px 12px 36px 0;border-right:1px solid var(--border)}
+.toc h2{font-family:var(--mono);text-transform:uppercase;letter-spacing:2px;font-size:11px;color:var(--muted);margin:0 0 14px;font-weight:600}
+.toc ol{list-style:none;margin:0;padding:0;counter-reset:c}
+.toc li{margin:1px 0}
+.toc a{display:flex;gap:10px;align-items:baseline;text-decoration:none;color:var(--muted);padding:7px 10px;border-radius:8px;font-size:14.5px;font-weight:500;line-height:1.3}
+.toc a .n{font-family:var(--mono);font-size:12px;color:var(--accent-ink);min-width:20px}
+.toc a:hover{background:var(--surface-2);color:var(--ink)}
+.toc a.active{background:var(--accent-soft);color:var(--ink)}
+.toc a.active .n{color:var(--accent-ink)}
+main{padding:48px 0 96px;min-width:0;max-width:760px}
+
+/* CHAPTERS */
+.chapter{scroll-margin-top:16px;padding-top:28px}
+.chapter+.chapter{margin-top:56px;border-top:1px solid var(--border)}
+.eyebrow{font-family:var(--mono);text-transform:uppercase;letter-spacing:2.5px;font-size:12px;color:var(--accent-ink);display:flex;align-items:center;gap:10px;margin:0 0 10px}
+.eyebrow::before{content:attr(data-n);background:var(--accent-ink);color:#fff;font-size:11px;padding:2px 8px;border-radius:20px;letter-spacing:1px}
+h2.title{font-family:var(--serif);font-weight:700;font-size:clamp(1.9rem,4vw,2.7rem);line-height:1.08;letter-spacing:-.02em;margin:0 0 8px;text-wrap:balance}
+.lead{font-size:1.15rem;color:var(--muted);margin:0 0 20px;max-width:60ch}
+h3{font-family:var(--serif);font-weight:700;font-size:1.4rem;letter-spacing:-.01em;margin:34px 0 8px}
+h4{font-size:1.02rem;font-weight:700;margin:22px 0 4px}
+p{margin:0 0 16px;max-width:66ch}
+ul,ol.steps{max-width:66ch}
+li{margin:6px 0}
+strong{font-weight:600}
+a{color:var(--accent-ink);text-underline-offset:2px}
+code{font-family:var(--mono);font-size:.85em;background:var(--surface-2);padding:1px 6px;border-radius:5px}
+
+/* FIGURES */
+figure{margin:26px 0;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:10px;box-shadow:var(--shadow)}
+figure img{display:block;width:100%;height:auto;border-radius:8px}
+figcaption{font-family:var(--mono);font-size:12px;color:var(--muted);padding:10px 6px 4px;line-height:1.5}
+figcaption b{color:var(--accent-ink);font-weight:600}
+
+/* CALLOUTS */
+.note{background:var(--surface-2);border:1px solid var(--border);border-radius:12px;padding:15px 18px;margin:22px 0}
+.note p{margin:0;max-width:none}
+.note .lbl{font-family:var(--mono);font-size:12px;color:var(--accent-ink);font-weight:600;display:block;margin-bottom:4px}
+.note.green .lbl{color:var(--accent-2)}
+
+/* PILLS / TABLE */
+.pills{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0;padding:0;list-style:none}
+.pills li{font-family:var(--mono);font-size:12.5px;background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:6px 12px;margin:0;color:var(--ink)}
+.tbl{width:100%;border-collapse:collapse;margin:20px 0;font-size:15px}
+.tbl th,.tbl td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top}
+.tbl th{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);font-weight:600}
+.tbl td:first-child{font-weight:600;white-space:nowrap}
+.tbl-wrap{overflow-x:auto}
+
+/* two-up figures */
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:620px){.duo{grid-template-columns:1fr}}
+.duo figure{margin:0}
+
+/* THEME TOGGLE */
+.toggle{position:fixed;top:16px;right:16px;z-index:20;background:var(--surface);color:var(--ink);border:1px solid var(--border);border-radius:20px;padding:8px 14px;font-family:var(--mono);font-size:12px;font-weight:600;cursor:pointer;box-shadow:var(--shadow)}
+.toggle:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+footer{border-top:1px solid var(--border);padding:32px 24px;text-align:center;color:var(--muted);font-family:var(--mono);font-size:12px}
+
+@media (max-width:860px){
+  .layout{grid-template-columns:1fr;gap:0}
+  .toc{position:static;height:auto;border-right:none;border-bottom:1px solid var(--border);padding:18px 0}
+  .toc ol{columns:2;gap:8px}
+  main{padding:32px 0 72px}
+}
+@media print{
+  .toc,.toggle{display:none}
+  .layout{display:block;max-width:none}
+  .hero{padding:32px}
+  figure{break-inside:avoid;box-shadow:none}
+  .chapter{break-inside:auto}
+  body{font-size:11pt}
+}
+</style>
+
+<button class="toggle" id="themeBtn" aria-label="Cambiar tema">◐ Tema</button>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="wordmark"><b>go</b><i>PROJECT</i> <span>EDELVIVES</span></div>
+    <h1>Manual completo de GoProject</h1>
+    <p>Todo lo que puedes hacer en la plataforma: crear proyectos con IA, editarlos, evaluar a tu alumnado con criterios LOMLOE y llevarlos al aula, en papel y en digital.</p>
+    <div class="hero-rule"></div>
+    <div class="kicker">Guía de referencia · Edición septiembre 2026</div>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="toc" aria-label="Índice">
+    <h2>Índice</h2>
+    <ol>
+      <li><a href="#c1"><span class="n">01</span> Qué es GoProject</a></li>
+      <li><a href="#c2"><span class="n">02</span> La pantalla principal</a></li>
+      <li><a href="#c3"><span class="n">03</span> Mis clases y tu alumnado</a></li>
+      <li><a href="#cexp"><span class="n">04</span> Explorar: la biblioteca</a></li>
+      <li><a href="#c4"><span class="n">05</span> Crear un proyecto con IA</a></li>
+      <li><a href="#c5"><span class="n">06</span> Editar el proyecto</a></li>
+      <li><a href="#c6"><span class="n">07</span> Evaluación</a></li>
+      <li><a href="#c7"><span class="n">08</span> Publicar e imprimir</a></li>
+      <li><a href="#c8"><span class="n">09</span> Inclusión y DUA</a></li>
+      <li><a href="#c9"><span class="n">10</span> Chatbot Edelvives4U</a></li>
+      <li><a href="#c10"><span class="n">11</span> Referencia rápida</a></li>
+    </ol>
+  </nav>
+
+  <main>
+
+    <!-- 01 -->
+    <section class="chapter" id="c1">
+      <p class="eyebrow" data-n="01">Introducción</p>
+      <h2 class="title">Qué es GoProject</h2>
+      <p class="lead">La plataforma de Edelvives para crear y gestionar proyectos de aprendizaje alineados con la LOMLOE, con un asistente de inteligencia artificial y el corpus editorial de Edelvives.</p>
+      <p>Tú pones la idea; la IA construye el proyecto. Eliges la etapa, el tema y cuántas sesiones tienes, y en minutos obtienes un proyecto completo — con sus fases, actividades, etiquetado LOMLOE y criterios de evaluación. Tú revisas, ajustas lo que no encaje y publicas. Cada proyecto se estructura en cinco fases: <strong>Motivación</strong>, <strong>Activación</strong>, <strong>Desarrollo</strong>, <strong>Producto final</strong> y <strong>Síntesis</strong>, y tu alumnado lo trabaja en la plataforma, en papel o en formato híbrido.</p>
+
+      <h3>Dos formas de trabajar, según tu licencia</h3>
+      <div class="tbl-wrap"><table class="tbl">
+        <tr><th>Licencia</th><th>Qué te permite</th></tr>
+        <tr><td>GoProject</td><td>Usar la sección <strong>Explorar</strong> (biblioteca de proyectos ya hechos): usarlos tal cual, adaptarlos a tu comunidad y curso, editarlos y publicarlos. No incluye la creación con IA.</td></tr>
+        <tr><td>GoProject a tu manera</td><td>Todo lo anterior <strong>más crear proyectos desde cero con el asistente de IA</strong> y regenerar contenido con prompts.</td></tr>
+      </table></div>
+
+      <h3>El Marco del Talento</h3>
+      <p>Es el marco conceptual que vertebra GoProject y da sentido a «¡Apostamos por el talento!». Organiza el aprendizaje en <strong>3 dimensiones</strong> — Personal, Social e Ideas — y <strong>9 atributos</strong>. La biblioteca de proyectos (Explorar) está organizada en torno a él.</p>
+      <ul class="pills">
+        <li>Autoconocimiento</li><li>Autorregulación</li><li>Autonomía y toma de decisiones</li>
+        <li>Comunicación</li><li>Trabajo colaborativo</li><li>Compromiso social</li>
+        <li>Pensamiento creativo</li><li>Pensamiento crítico</li><li>Emprendimiento</li>
+      </ul>
+    </section>
+
+    <!-- 02 -->
+    <section class="chapter" id="c2">
+      <p class="eyebrow" data-n="02">Orientación</p>
+      <h2 class="title">La pantalla principal</h2>
+      <p class="lead">El menú superior organiza toda la plataforma: Mis proyectos, Mis clases, Explorar, Recursos e Instrumentos de evaluación.</p>
+
+      <figure><img src="manual_assets/mis_proyectos.jpg" alt="Pantalla Mis proyectos" loading="lazy"><figcaption><b>Mis proyectos</b> — tus borradores arriba y tus proyectos publicados debajo.</figcaption></figure>
+
+      <h3>Mis proyectos y el año académico</h3>
+      <p>Se divide en <strong>Borradores</strong> (proyectos en los que trabajas; el alumnado no los ve) y <strong>Publicados</strong> (ya disponibles para tu alumnado). Un <strong>selector de año académico</strong> mantiene cada curso ordenado: el curso anterior queda intacto con toda su actividad. Desde los <strong>tres puntos</strong> de un proyecto puedes <strong>traerlo al curso actual</strong> o <strong>adaptarlo a otra comunidad o curso</strong>.</p>
+
+      <h3>Explorar</h3>
+      <p>La biblioteca de proyectos ya creados. Por su importancia tiene un capítulo propio: <a href="#cexp">Explorar: la biblioteca de proyectos</a>.</p>
+
+      <h3>Recursos e Instrumentos de evaluación</h3>
+      <p><strong>Recursos</strong> reúne documentación de uso y de metodología (ABP, DUA, multinivel, evaluación…), a nivel de Edelvives, de tu institución o de tu centro. <strong>Instrumentos de evaluación</strong> es donde viven tus escalas y rúbricas (lo verás en el capítulo 7).</p>
+      <div class="note"><span class="lbl">Nota</span><p>Los niveles <strong>personal · centro · institución · Edelvives</strong> son un principio de diseño que se repite en toda la plataforma: recursos, escalas, rúbricas y proyectos existen en esos cuatro ámbitos.</p></div>
+    </section>
+
+    <!-- 03 -->
+    <section class="chapter" id="c3">
+      <p class="eyebrow" data-n="03">Alumnado</p>
+      <h2 class="title">Mis clases y tu alumnado</h2>
+      <p class="lead">Antes de evaluar necesitas grupos con alumnado. Todo se organiza en Mis clases, con un sistema de códigos parecido a Google Classroom.</p>
+
+      <div class="duo">
+        <figure><img src="manual_assets/crear_clase.jpg" alt="Crear una clase" loading="lazy"><figcaption>Crear clase: etapa, curso y nombre.</figcaption></figure>
+        <figure><img src="manual_assets/clase_codigo.jpg" alt="Código de clase" loading="lazy"><figcaption><b>Código</b> para que el alumnado se una.</figcaption></figure>
+      </div>
+
+      <h3>Crear una clase y vincular alumnado</h3>
+      <p>En algunos centros las clases llegan ya creadas desde Cerebro. En la mayoría de los casos las creas tú: eliges la etapa y el curso, le pones nombre y GoProject genera un <strong>código de clase</strong>. Cuando tu alumnado se registra con ese código, entra en la clase automáticamente — no tienes que dar de alta a nadie a mano. Dentro de un proyecto, en <strong>Mis estudiantes</strong>, puedes <strong>vincular la clase completa</strong> o un grupo concreto.</p>
+
+      <h3>Equipos cooperativos</h3>
+      <p>La primera vez que asignas alumnado, GoProject te ofrece <strong>generar equipos</strong> automáticamente (grupos de 4–5, que puedes reorganizar). En cada equipo, una persona lleva la <strong>banderola roja</strong>: es la portavoz que entrega en nombre del grupo. Esta lógica es la base de la evaluación en grupo.</p>
+      <div class="duo">
+        <figure><img src="manual_assets/generar_equipos.jpg" alt="Generar equipos" loading="lazy"><figcaption>Generar equipos automáticamente.</figcaption></figure>
+        <figure><img src="manual_assets/equipos_portavoz.jpg" alt="Equipos con portavoz" loading="lazy"><figcaption>Portavoz marcado con banderola.</figcaption></figure>
+      </div>
+    </section>
+
+    <!-- 04 EXPLORAR -->
+    <section class="chapter" id="cexp">
+      <p class="eyebrow" data-n="04">Biblioteca</p>
+      <h2 class="title">Explorar: la biblioteca de proyectos</h2>
+      <p class="lead">Proyectos ya creados — de GoProject, del antiguo Go STEAM y de tu propio centro — listos para usar, adaptar y llevar al aula. Es el punto de partida cuando no quieres crear desde cero.</p>
+
+      <figure><img src="manual_assets/explorar_biblioteca.jpg" alt="Biblioteca de proyectos (Explorar)" loading="lazy"><figcaption><b>Explorar</b> — «Proyectos de mi colegio» y «Proyectos GoProject», con las pestañas de filtrado arriba.</figcaption></figure>
+
+      <h3>Cómo encontrar un proyecto</h3>
+      <p>Arriba tienes <strong>pestañas</strong> que reorganizan la biblioteca; a la derecha, filtros de <strong>etapa</strong>, <strong>curso</strong> e <strong>idioma</strong>, un <strong>buscador</strong> por nombre y <strong>Más filtros</strong>. Combínalos y vuelve al inicio con <strong>Quitar filtros</strong>.</p>
+      <div class="tbl-wrap"><table class="tbl">
+        <tr><th>Pestaña</th><th>Agrupa por</th></tr>
+        <tr><td>Nuestros proyectos</td><td>Origen: proyectos de tu centro, de tu institución y de GoProject (Edelvives).</td></tr>
+        <tr><td>Por etapa</td><td>Infantil, Primaria, Secundaria (con «Ver todos» por etapa).</td></tr>
+        <tr><td>Por canal</td><td>Los nuevos canales del Talento: bienestar, ciencia y descubrimiento, comunicación y cultura digital, creatividad, impacto social, IA, inteligencia emocional, tecnología y programación.</td></tr>
+        <tr><td>Por tecnología</td><td>Los antiguos canales de Go STEAM: Cienciablog, CIRKIDS, mBot, mTiny, Scratch, LEGO SPIKE, impresión 3D…</td></tr>
+        <tr><td>Por dimensión del talento</td><td>Personal, Social, Ideas.</td></tr>
+        <tr><td>Por atributos del talento</td><td>Los 9 atributos del Marco del Talento.</td></tr>
+      </table></div>
+      <figure><img src="manual_assets/explorar_filtros.jpg" alt="Filtros de Explorar" loading="lazy"><figcaption>Filtrado por etapa, canal y talento.</figcaption></figure>
+
+      <h3>«Nuestros proyectos»: de dónde viene cada uno</h3>
+      <p>La pestaña <strong>Nuestros proyectos</strong> separa el origen: los <strong>de tu centro</strong> (subidos por tu colegio), los <strong>de tu institución</strong> y los <strong>de GoProject</strong> (creados por Edelvives). Un mismo centro puede escalar un proyecto a su biblioteca para compartirlo con todos sus docentes.</p>
+
+      <h3>Ver un proyecto antes de elegirlo</h3>
+      <p>Con <strong>Ver</strong> abres el proyecto en modo consulta para revisarlo — fases, actividades, contenidos — antes de decidir si lo incorporas. Así eliges con criterio.</p>
+
+      <h3>Las tres acciones: usar, adaptar, crear desde</h3>
+      <p>Desde los <strong>tres puntos</strong> de cualquier proyecto tienes tres formas de incorporarlo:</p>
+      <figure><img src="manual_assets/usar_menu.jpg" alt="Menú: Usar este proyecto / Crear proyecto desde este / Adaptar a otra comunidad o curso" loading="lazy"><figcaption>Las tres acciones del menú de un proyecto.</figcaption></figure>
+      <div class="tbl-wrap"><table class="tbl">
+        <tr><th>Acción</th><th>Qué hace y cuándo usarla</th></tr>
+        <tr><td>Usar este proyecto</td><td>Copia el proyecto <strong>tal cual</strong> a tus Borradores. Para llevarlo al aula rápido, sin realinear el currículo.</td></tr>
+        <tr><td>Adaptar a otra comunidad o curso</td><td>Copia el proyecto <strong>y lo realinea</strong> con el currículo de tu comunidad y curso. Elígela si vas a <strong>evaluar</strong>.</td></tr>
+        <tr><td>Crear proyecto desde este</td><td>Genera un proyecto <strong>nuevo con IA</strong> inspirándose en este. Solo con la licencia <strong>GoProject a tu manera</strong>.</td></tr>
+      </table></div>
+
+      <h3>El formulario de adaptación</h3>
+      <p>Al <strong>adaptar</strong>, GoProject te pide idioma y comunidad y, <strong>por cada asignatura</strong> del proyecto, el <strong>docente</strong>, el <strong>número de sesiones</strong> y la <strong>duración</strong>. Si es interdisciplinar verás varias asignaturas (con <strong>+ Colaborador</strong> para invitar a otros docentes). Al confirmar, el proyecto queda en tus Borradores ya alineado con tu currículo.</p>
+      <figure><img src="manual_assets/adaptar_form.jpg" alt="Formulario de adaptación con asignaturas, docente, sesiones y duración" loading="lazy"><figcaption>El formulario de «Adaptar a otra comunidad o curso».</figcaption></figure>
+
+      <h3>Dos avisos con los proyectos de Go STEAM</h3>
+      <ul>
+        <li><strong>Las fases varían.</strong> Un proyecto de Go STEAM conserva su estructura propia (por ejemplo: <em>«¿Es un imán?», «Movimiento mágico», «Imanes infinitos», «Autoevalúate»</em>), no las cinco fases de los proyectos creados con GoProject.</li>
+        <li><strong>Currículo nacional y sin marcar para evaluación.</strong> Vienen con el currículo nacional por defecto y con la rejilla de evaluación vacía. Si vas a evaluar, <strong>adáptalos a tu comunidad</strong> y marca qué actividades puntúan (capítulo 7).</li>
+      </ul>
+
+      <h3>De Explorar al aula</h3>
+      <p>El recorrido completo: <strong>encuentras</strong> un proyecto → lo <strong>usas o adaptas</strong> → llega a tus <strong>Borradores</strong> → lo <strong>editas</strong> lo justo → lo <strong>asignas</strong> a tu clase → lo <strong>evalúas</strong> → lo <strong>publicas o imprimes</strong>.</p>
+    </section>
+
+    <!-- 05 -->
+    <section class="chapter" id="c4">
+      <p class="eyebrow" data-n="05">Creación</p>
+      <h2 class="title">Crear un proyecto con IA</h2>
+      <p class="lead">El botón «Crear nuevo» abre el asistente. Eliges entre una situación de aprendizaje o un proyecto interdisciplinar, y un punto de partida.</p>
+      <div class="duo">
+        <figure><img src="manual_assets/crear_nuevo.jpg" alt="Crear nuevo" loading="lazy"><figcaption>Situación de aprendizaje o interdisciplinar.</figcaption></figure>
+        <figure><img src="manual_assets/tres_opciones.jpg" alt="Tres puntos de partida" loading="lazy"><figcaption>Desde una idea · desde tus libros · desde criterios y saberes.</figcaption></figure>
+      </div>
+
+      <h3>Todas las opciones de creación</h3>
+      <p>Al pulsar «Crear nuevo» eliges primero una <strong>categoría</strong> (situación de aprendizaje o proyecto interdisciplinar) y después una <strong>tipología</strong>. Esto es lo que significa cada una.</p>
+
+      <h4>Situación de aprendizaje — una asignatura</h4>
+      <div class="tbl-wrap"><table class="tbl">
+        <tr><th>Tipología</th><th>Qué hace</th></tr>
+        <tr><td>Situación de aprendizaje</td><td>Convierte una idea o reto en una propuesta didáctica completa. Indicas la temática y el sistema selecciona automáticamente los criterios y saberes LOMLOE que mejor encajan.</td></tr>
+        <tr><td>… desde tus libros</td><td>Parte de los recursos de Edelvives: seleccionas la unidad didáctica o los contenidos de tu libro y se transforman en una propuesta competencial lista para el aula.</td></tr>
+        <tr><td>… desde criterios y saberes</td><td>Diseñas a partir de la evaluación: seleccionas manualmente los criterios y saberes que necesitas calificar y se construye la situación a medida para cubrirlos.</td></tr>
+      </table></div>
+
+      <h4>Proyecto interdisciplinar — varias asignaturas</h4>
+      <p>Implica varias materias y, normalmente, coordinación entre docentes.</p>
+      <figure><img src="manual_assets/interdisciplinar_tipos.jpg" alt="Las cinco tipologías de proyecto interdisciplinar" loading="lazy"><figcaption>Las cinco tipologías de proyecto interdisciplinar.</figcaption></figure>
+      <div class="tbl-wrap"><table class="tbl">
+        <tr><th>Tipología</th><th>Qué hace</th></tr>
+        <tr><td>Global</td><td>Proyecto colaborativo desde cero alineado con la LOMLOE. Defines un reto compartido e invitas a otros docentes a integrar sus materias libremente.</td></tr>
+        <tr><td>Desde tus libros</td><td>Integra contenidos de varias materias a partir de los libros de Edelvives: seleccionas y conectas unidades didácticas o recursos editoriales.</td></tr>
+        <tr><td>Desde criterios y saberes</td><td>Parte de los objetivos de evaluación: seleccionáis manualmente los criterios y competencias a cubrir y después definís temática y tareas.</td></tr>
+        <tr><td>Por ámbitos</td><td>Genera el proyecto a partir de un <strong>ámbito</strong> ya configurado y sus materias asociadas — útil en comunidades que trabajan por ámbitos.</td></tr>
+        <tr><td>Competencial</td><td>Como el global (colaborativo desde cero), pero con un enfoque claramente competencial: actividades más abiertas, de indagación.</td></tr>
+      </table></div>
+
+      <div class="note"><span class="lbl">El punto de partida, en resumen</span><p><strong>Desde una idea</strong> te da libertad total; <strong>desde tus libros</strong> ancla el proyecto en el material de Edelvives; <strong>desde criterios y saberes</strong> te asegura que evalúas exactamente lo que necesitas.</p></div>
+
+      <p>A partir de ahí, el proceso tiene <strong>9 pasos</strong>. En los primeros das la información; desde el paso 3 trabaja la IA y tú revisas.</p>
+
+      <h3>Pasos 1–2 · Datos y temática</h3>
+      <p>Defines comunidad, idioma, etapa, curso, asignatura(s) y número de sesiones (las sesiones se calculan solas; a más sesiones, más tarda la generación). Después describes la <strong>temática</strong>: descripción del proyecto, entorno educativo y perfil del alumnado. Cuanto más concreto seas aquí, mejor será la propuesta.</p>
+      <div class="duo">
+        <figure><img src="manual_assets/datos_inicio.jpg" alt="Datos de inicio" loading="lazy"><figcaption>Paso 1 — Datos de inicio.</figcaption></figure>
+        <figure><img src="manual_assets/tematica.jpg" alt="Temática" loading="lazy"><figcaption>Paso 2 — Temática y contexto.</figcaption></figure>
+      </div>
+
+      <h3>Pasos 3–4 · Ideas clave y Propuestas</h3>
+      <p>La IA genera <strong>ideas clave</strong> y luego varias <strong>propuestas</strong> de proyecto. Estos son los <strong>únicos dos pasos en los que puedes pedir que se regenere el proyecto completo</strong>: elige, edita o pide otra versión antes de continuar.</p>
+      <div class="duo">
+        <figure><img src="manual_assets/ideas_clave.jpg" alt="Ideas clave" loading="lazy"><figcaption>Paso 3 — Ideas clave.</figcaption></figure>
+        <figure><img src="manual_assets/propuestas.jpg" alt="Propuestas" loading="lazy"><figcaption>Paso 4 — Propuestas de proyecto.</figcaption></figure>
+      </div>
+      <div class="note"><span class="lbl">Punto de no retorno</span><p>A partir del paso 5 el proyecto ya no se regenera entero. Si quieres cambiar el enfoque en profundidad, hazlo antes. (Más adelante, dentro del editor, sí podrás regenerar un bloque concreto con un prompt.)</p></div>
+
+      <h3>Pasos 5–7 · Etiquetado, concreción y ODS</h3>
+      <p>La IA asigna los <strong>saberes básicos</strong> LOMLOE, genera la <strong>concreción curricular</strong> (competencias y criterios de evaluación por asignatura) y selecciona los <strong>ODS</strong>. Todo es editable: puedes añadir o quitar etiquetas, competencias y criterios.</p>
+      <div class="duo">
+        <figure><img src="manual_assets/etiquetado.jpg" alt="Etiquetado de saberes" loading="lazy"><figcaption>Paso 5 — Saberes básicos.</figcaption></figure>
+        <figure><img src="manual_assets/concrecion.jpg" alt="Concreción curricular" loading="lazy"><figcaption>Paso 6 — Competencias y criterios.</figcaption></figure>
+      </div>
+      <figure><img src="manual_assets/ods.jpg" alt="ODS" loading="lazy"><figcaption>Paso 7 — Objetivos de Desarrollo Sostenible.</figcaption></figure>
+
+      <h3>Pasos 8–9 · Contenidos y generar</h3>
+      <p>La IA etiqueta los <strong>contenidos de Edelvives</strong> relacionados con tu tema. Aquí también puedes <strong>subir tus propios PDF</strong> (hasta 15 archivos, 50 MB cada uno) para que se tengan en cuenta en la generación — ideal para dar un enfoque local. Revisas el resumen y generas el proyecto.</p>
+      <div class="duo">
+        <figure><img src="manual_assets/contenidos.jpg" alt="Contenidos y generación" loading="lazy"><figcaption>Paso 8 — Contenidos y archivos propios.</figcaption></figure>
+        <figure><img src="manual_assets/portada_ia.jpg" alt="Portada con IA" loading="lazy"><figcaption>Portada: súbela o genérala con IA.</figcaption></figure>
+      </div>
+    </section>
+
+    <!-- 05 -->
+    <section class="chapter" id="c5">
+      <p class="eyebrow" data-n="06">Edición</p>
+      <h2 class="title">Editar el proyecto</h2>
+      <p class="lead">Todo el contenido se organiza en bloques dentro de las cinco fases. La edición se ha simplificado mucho, y siempre puedes ver el resultado con los ojos del alumnado.</p>
+
+      <div class="note green"><span class="lbl">Recuerda</span><p>Revisa siempre lo que genera la IA antes de publicar: puede evaluar o preguntar cosas que tú no quieras. Edita lo que no encaje con tu aula.</p></div>
+
+      <h3>Editar bloques y actividades</h3>
+      <p>Puedes situarte en <strong>una actividad concreta y editarla directamente</strong> (enunciado, tipo, imágenes, respuesta correcta) sin abrir el bloque entero. Con <strong>Personalizar</strong> (el botón que sustituye a los antiguos engranajes) tienes las acciones del bloque:</p>
+      <ul>
+        <li><strong>Editar bloque</strong> y <strong>eliminar bloque</strong>.</li>
+        <li><strong>Regenerar bloque</strong> con un <em>prompt</em> — solo en proyectos creados con IA: «hazla más sencilla», «enfócala en…».</li>
+        <li><strong>Traducir bloque</strong> a otro idioma (p. ej. inglés).</li>
+        <li><strong>Historial de versiones</strong> y <strong>notas del profesor</strong> (no visibles para el alumnado).</li>
+        <li><strong>Configuración para estudiantes</strong>: ocultar el bloque o permitir la subida de archivos.</li>
+      </ul>
+      <div class="duo">
+        <figure><img src="manual_assets/editar_bloque.jpg" alt="Editar bloque" loading="lazy"><figcaption>Edición directa de una actividad.</figcaption></figure>
+        <figure><img src="manual_assets/regenerar_prompt.jpg" alt="Regenerar con prompt" loading="lazy"><figcaption>Regenerar un bloque con un prompt.</figcaption></figure>
+      </div>
+
+      <h3>Añadir tu propio bloque</h3>
+      <p>Con <strong>Añadir bloque</strong> insertas texto (HTML con imágenes, audio y vídeo), ejercicios (con previsualización, en muchos formatos), recursos, recursos PDF, kanban, pasos, escalera de metacognición, tabla chequeable y «puntuar la experiencia».</p>
+      <div class="duo">
+        <figure><img src="manual_assets/anadir_bloque.jpg" alt="Añadir bloque" loading="lazy"><figcaption>Menú «Añadir bloque».</figcaption></figure>
+        <figure><img src="manual_assets/tipos_ejercicios.jpg" alt="Tipos de ejercicio" loading="lazy"><figcaption>Diez tipos de ejercicio.</figcaption></figure>
+      </div>
+
+      <div class="note"><span class="lbl">Imágenes y vídeos</span><p>Se añaden desde un bloque de <strong>Texto</strong> («insertar imagen» / «añadir vídeo», pegando una URL de YouTube). Al imprimir, cada vídeo se convierte en un <strong>código QR</strong> para que el alumnado lo escanee.</p></div>
+
+      <div class="duo">
+        <figure><img src="manual_assets/insertar_imagen.jpg" alt="Insertar imagen" loading="lazy"><figcaption>Insertar imagen en un bloque de texto.</figcaption></figure>
+        <figure><img src="manual_assets/vista_estudiante.jpg" alt="Vista de estudiante" loading="lazy"><figcaption><b>Vista de estudiante</b> para comprobar el resultado.</figcaption></figure>
+      </div>
+      <p>Usa el traductor por bloque cuando quieras que parte del proyecto esté en otro idioma; y la <strong>vista de estudiante</strong> (arriba a la derecha) para ver exactamente cómo lo verá tu alumnado.</p>
+      <figure><img src="manual_assets/traducir_bloque.jpg" alt="Traducir bloque" loading="lazy"><figcaption>Traducir un bloque a otro idioma.</figcaption></figure>
+    </section>
+
+    <!-- 06 -->
+    <section class="chapter" id="c6">
+      <p class="eyebrow" data-n="07">Evaluación</p>
+      <h2 class="title">Evaluación con criterios LOMLOE</h2>
+      <p class="lead">La evaluación está integrada desde la creación. Tú decides qué actividades puntúan y con qué instrumento; las notas viajan a los criterios y al cuaderno.</p>
+
+      <h3>Instrumentos: escalas y rúbricas</h3>
+      <p>En <strong>Instrumentos de evaluación</strong> viven tus escalas (numéricas, por opciones, con iconos…) y rúbricas. Existen en cuatro ámbitos (personal, centro, institución, Edelvives). Como docente creas los tuyos <strong>personales</strong> y puedes <strong>duplicar</strong> uno institucional para adaptarlo. Cada proyecto ya trae una configuración por defecto: escala 0–10 en la mayoría de actividades y una <strong>rúbrica autogenerada</strong> en <em>Crea</em> y el <em>Producto final</em>.</p>
+      <div class="duo">
+        <figure><img src="manual_assets/instrumentos.jpg" alt="Instrumentos de evaluación" loading="lazy"><figcaption>Escalas globales y personales.</figcaption></figure>
+        <figure><img src="manual_assets/escala_niveles.jpg" alt="Crear escala" loading="lazy"><figcaption>Crear una escala con niveles.</figcaption></figure>
+      </div>
+
+      <h3>Configurar qué evalúa cada actividad</h3>
+      <p>Dentro de una actividad, <strong>Configurar evaluación</strong> tiene cuatro decisiones: si <strong>va al cuaderno</strong>, si <strong>impacta en la calificación</strong> (aparece en la rejilla), si <strong>genera feedback en el muro</strong> y qué <strong>criterios</strong> lleva asociados — más el <strong>instrumento</strong> (escala o rúbrica). La nota que pones se propaga a esos criterios de evaluación.</p>
+      <div class="duo">
+        <figure><img src="manual_assets/configurar_evaluacion.jpg" alt="Configurar evaluación" loading="lazy"><figcaption>Las cuatro decisiones + instrumento.</figcaption></figure>
+        <figure><img src="manual_assets/ver_criterios.jpg" alt="Ver criterios" loading="lazy"><figcaption>Criterios asociados a la actividad.</figcaption></figure>
+      </div>
+      <div class="note"><span class="lbl">Proyectos de Go STEAM</span><p>Los proyectos que tomas de Explorar procedentes de Go STEAM llegan <strong>sin marcar</strong> (rejilla vacía) y con currículo nacional. Para evaluar con ellos, márcalos tú y <strong>adáptalos a tu comunidad y curso</strong>.</p></div>
+
+      <h3>La rúbrica autogenerada</h3>
+      <p>Toma los criterios de evaluación y los reescribe como <strong>indicadores contextualizados</strong> a la actividad concreta, para que te sea más fácil valorar el nivel de logro. Cuando calificas un indicador, en realidad estás calificando un criterio LOMLOE.</p>
+      <figure><img src="manual_assets/rubrica_autogenerada.jpg" alt="Rúbrica autogenerada" loading="lazy"><figcaption><b>Rúbrica autogenerada</b> a partir de los criterios de evaluación.</figcaption></figure>
+
+      <h3>La rejilla y el cuaderno de evaluación</h3>
+      <p>La <strong>rejilla</strong> muestra el alumnado en filas y los bloques evaluables en columnas, con las notas. Una nota modificada a mano se marca con una <strong>«M»</strong>; la nota global del proyecto es solo orientativa. Con <strong>Sincronizar</strong>, esas notas se vuelcan al <strong>cuaderno de evaluación</strong> de Global Educa — hay un cuaderno por materia y grupo, con nota numérica, nota final y exportación a Excel.</p>
+      <div class="duo">
+        <figure><img src="manual_assets/rejilla.jpg" alt="Rejilla de evaluación" loading="lazy"><figcaption>Rejilla con notas y celdas «Preevaluar».</figcaption></figure>
+        <figure><img src="manual_assets/cuaderno.jpg" alt="Cuaderno de evaluación" loading="lazy"><figcaption>Cuaderno de evaluación (Global Educa).</figcaption></figure>
+      </div>
+
+      <h3>Evaluación en grupo y preevaluación con IA</h3>
+      <p>Una actividad marcada como <strong>grupal</strong> (requiere equipos) la corrige el portavoz; la nota y el feedback se <strong>propagan a todo el equipo</strong>, y puedes individualizarlos cuando quieras. La <strong>preevaluación con IA</strong> te deja subir una foto o escaneo de la hoja de respuestas para que la IA detecte y marque las preguntas — un punto de partida que tú revisas.</p>
+      <figure><img src="manual_assets/evaluacion_grupo.jpg" alt="Evaluación en grupo" loading="lazy"><figcaption>Corrección del portavoz; la nota se propaga al equipo.</figcaption></figure>
+
+      <h3>El muro y las estadísticas</h3>
+      <p>El <strong>muro</strong> distingue <strong>avisos</strong> (a todo el grupo, a profesores o a equipos concretos) y <strong>feedback</strong> (ligado a actividades). En <strong>Mi perfil › Estadísticas</strong> ves el conjunto de todos tus proyectos: usos de competencias y criterios y nota media; dentro de cada proyecto tienes su propio panel.</p>
+      <figure><img src="manual_assets/estadisticas.jpg" alt="Estadísticas" loading="lazy"><figcaption>Estadísticas globales de todos tus proyectos.</figcaption></figure>
+    </section>
+
+    <!-- 07 -->
+    <section class="chapter" id="c7">
+      <p class="eyebrow" data-n="08">Salida</p>
+      <h2 class="title">Publicar, imprimir y compartir</h2>
+      <p class="lead">Cuando el proyecto está listo, lo publicas para tu alumnado y decides los formatos de salida.</p>
+
+      <h3>Publicar</h3>
+      <p>Al pulsar <strong>Publicar</strong> aparece una declaración de responsabilidad (verifica calidad y pertinencia del material). El proyecto pasa a <strong>Publicados</strong>, es accesible para el alumnado asignado y aparece en <strong>Explorar</strong> para tu centro. Con <strong>Convertir en borrador</strong> puedes retirarlo temporalmente (el alumnado deja de verlo pero conserva sus evidencias).</p>
+      <figure><img src="manual_assets/publicar.jpg" alt="Publicar el proyecto" loading="lazy"><figcaption>La vista del proyecto y su barra superior.</figcaption></figure>
+      <div class="note"><span class="lbl">La barra superior del proyecto</span><p><strong>Ver PDF</strong>, <strong>Instrumentos de evaluación</strong>, <strong>Recursos</strong> y <strong>Vista de estudiante</strong>, más un menú de <strong>tres puntos</strong> con: Impresión On Demand, Descargar Solucionario, Resumen del proyecto, Inclusión, Sincronizar y Convertir en borrador. El <strong>chatbot del alumnado</strong> viene desactivado por defecto; tú decides si lo activas para cada proyecto.</p></div>
+
+      <h3>Programación didáctica</h3>
+      <p>La vista de <strong>Programación</strong> reúne saberes básicos, concreción curricular, ODS y <strong>Currículum del talento</strong>, en cuatro pestañas, y se descarga en PDF — lista para tu programación anual.</p>
+      <figure><img src="manual_assets/programacion.jpg" alt="Programación" loading="lazy"><figcaption>Programación didáctica descargable.</figcaption></figure>
+
+      <h3>Impresión On Demand y Solucionario</h3>
+      <p>En el menú de tres puntos, <strong>Impresión On Demand</strong> genera un cuaderno imprimible: previsualizas, decides si incluir los saberes básicos y completas un formulario (dirección, ejemplares, encuadernación — grapa hasta 64 páginas, espiral por encima). <strong>Descargar Solucionario</strong> da un PDF con las respuestas, solo para el docente.</p>
+      <div class="duo">
+        <figure><img src="manual_assets/impresion.jpg" alt="Impresión On Demand" loading="lazy"><figcaption>Opciones de Impresión On Demand.</figcaption></figure>
+        <figure><img src="manual_assets/formulario_impresion.jpg" alt="Formulario de impresión" loading="lazy"><figcaption>Formulario de solicitud de impresión.</figcaption></figure>
+      </div>
+    </section>
+
+    <!-- 08 -->
+    <section class="chapter" id="c8">
+      <p class="eyebrow" data-n="09">Diversidad</p>
+      <h2 class="title">Inclusión y DUA</h2>
+      <p class="lead">GoProject se integra con Nubo (Redwap) para generar adaptaciones pedagógicas específicas para tu aula.</p>
+      <p>Dentro de un proyecto, en la barra superior (botón <strong>Inclusión</strong> o el menú de tres puntos) encuentras <strong>Adaptaciones DA</strong> y <strong>Ver resumen del proyecto</strong>. No es accesibilidad genérica: parte de un cuestionario sobre tu grupo y genera un documento con <strong>medidas pedagógicas</strong>, <strong>niveles de adaptación</strong> (elevada, media, leve) y <strong>pautas DUA</strong> concretas (tipografía clara, espaciado, contraste, reformulación de enunciados). El <strong>Resumen del proyecto</strong> compila propósito, distribución de sesiones, recomendaciones metodológicas y una sección DUA y Diversidad.</p>
+    </section>
+
+    <!-- 09 -->
+    <section class="chapter" id="c9">
+      <p class="eyebrow" data-n="10">Ayuda</p>
+      <h2 class="title">El chatbot Edelvives4U</h2>
+      <p class="lead">El asistente está siempre en la esquina inferior derecha, y sabe dónde estás.</p>
+      <p><strong>Fuera de un proyecto</strong> funciona como asistente general: ideas de proyectos, catálogo editorial, dudas de la plataforma. <strong>Dentro de un proyecto</strong> responde sobre ese proyecto concreto y ayuda a editar (buscar recursos, temporalizar, proponer adaptaciones).</p>
+    </section>
+
+    <!-- 10 -->
+    <section class="chapter" id="c10">
+      <p class="eyebrow" data-n="11">Referencia</p>
+      <h2 class="title">Referencia rápida</h2>
+      <p class="lead">Glosario de los términos clave de GoProject.</p>
+      <div class="tbl-wrap"><table class="tbl">
+        <tr><th>Término</th><th>Qué es</th></tr>
+        <tr><td>Explorar</td><td>Biblioteca de proyectos ya hechos (antes «Biblioteca»).</td></tr>
+        <tr><td>A tu manera</td><td>Licencia que habilita la creación de proyectos con IA.</td></tr>
+        <tr><td>5 fases</td><td>Motivación · Activación · Desarrollo · Producto final · Síntesis.</td></tr>
+        <tr><td>Bloque</td><td>Unidad de contenido dentro de una fase (texto, actividades, kanban…).</td></tr>
+        <tr><td>Personalizar</td><td>Menú de acciones de un bloque (editar, regenerar, traducir, evaluar…).</td></tr>
+        <tr><td>Concreción curricular</td><td>Competencias y criterios de evaluación por asignatura.</td></tr>
+        <tr><td>Instrumento</td><td>Escala o rúbrica con la que calificas una actividad.</td></tr>
+        <tr><td>Rúbrica autogenerada</td><td>Rúbrica que reescribe los criterios como indicadores de la actividad.</td></tr>
+        <tr><td>Rejilla de evaluación</td><td>Vista de notas: alumnado × bloques evaluables.</td></tr>
+        <tr><td>Cuaderno de evaluación</td><td>Libreta de notas de Global Educa; un cuaderno por materia y grupo.</td></tr>
+        <tr><td>Sincronizar</td><td>Vuelca las notas de la rejilla al cuaderno de evaluación.</td></tr>
+        <tr><td>Preevaluación con IA</td><td>La IA detecta y marca respuestas desde una foto o escaneo.</td></tr>
+        <tr><td>Marco del Talento</td><td>3 dimensiones × 9 atributos que vertebran la plataforma.</td></tr>
+        <tr><td>Adaptaciones DA</td><td>Adaptaciones para dificultades de aprendizaje (integración con Nubo).</td></tr>
+        <tr><td>Edelvives4U</td><td>El chatbot asistente de la plataforma.</td></tr>
+      </table></div>
+    </section>
+
+  </main>
+</div>
+
+<footer>GoProject · Manual de referencia · Edelvives · Edición septiembre 2026</footer>
+
+<script>
+(function(){
+  var btn=document.getElementById('themeBtn');
+  var root=document.documentElement;
+  function cur(){return root.getAttribute('data-theme')|| (window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');}
+  btn.addEventListener('click',function(){
+    var next=cur()==='dark'?'light':'dark';
+    root.setAttribute('data-theme',next);
+    btn.textContent=(next==='dark'?'○':'●')+' Tema';
+  });
+  // active TOC link on scroll
+  var links=[].slice.call(document.querySelectorAll('.toc a'));
+  var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+  var obs=new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ links.forEach(function(l){l.classList.remove('active');}); if(map[e.target.id])map[e.target.id].classList.add('active'); }});
+  },{rootMargin:'-20% 0px -70% 0px'});
+  document.querySelectorAll('.chapter').forEach(function(s){obs.observe(s);});
+})();
+</script>
